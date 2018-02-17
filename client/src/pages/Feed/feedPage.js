@@ -7,6 +7,10 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 // import { List, ListItem } from "../../components/List";
 import { Input,  FormBtn } from "../../components/Form";
+// import { Carousel } from 'react-responsive-carousel';
+// import {Slider} from 'react-slick';
+import Slider from '../../slider';
+
 
 class Feed extends Component {
   state = {
@@ -55,8 +59,24 @@ class Feed extends Component {
         .catch(err => console.log(err));
     }
   };
+  
+
+
 
   render() {
+    var settings = {
+      dots: true,
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      pauseOnHover: true,
+      slidesToScroll: 1
+    };
+
+
+    
     return (
       <Container fluid>
         <Row>
@@ -84,17 +104,31 @@ class Feed extends Component {
               </FormBtn>
             </form>
           </Col>
-          <Col size="md-6 sm-12">
+         </Row>
+         <Row>
+          <Col size="md-6 sm-12" >
+          <Slider {...settings}>
+          {/* <Carousel showArrows={true} showThumbs={false}  width="50%"  onChange={this.onChange} onClickItem={this.onClickItem} > */}
           {this.state.feedz.map(feed => (
-          <FeedCard
+          <div>
+           <FeedCard 
             key={feed._id}
             id={feed._id}
             poster ={feed.poster} 
             link= {feed.link}
+   
           />
+            </div>
+
         ))}
+  
+  </Slider>
         
+        {/* </Carousel> */}
+       
           </Col>
+          
+        
         </Row>
       </Container>
     )

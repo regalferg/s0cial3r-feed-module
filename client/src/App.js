@@ -14,7 +14,7 @@ class App extends Component {
         </div>
         
         <Router>
-    <div>
+    <div >
      
       <Switch>
         <Route exact path="/" component={Feed} />

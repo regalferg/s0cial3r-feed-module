@@ -1,8 +1,14 @@
-import React from "react";
+import React from 'react'
 import "./FeedCard.css";
 
+
+
+
 const FeedCard = props => (
-  <div className={props.shake}>
+
+
+  
+  // <div className={props.shake}>
   <div className='card'>
   
     <div className="img-container">
@@ -11,16 +17,22 @@ const FeedCard = props => (
     <div className="content">
       <ul>
         <li>
-          <strong>Name:</strong> {props.poster}
+          <strong>Posted By:</strong> {props.poster}
         </li>
-        <li>
-          <strong>Link:</strong> {props.link}
-        </li>
+      
       
       </ul>
     </div>
     </div>
-  </div>
+  // </div>
+
+
+
 );
+
+
+
+
+
 
 export default FeedCard;
