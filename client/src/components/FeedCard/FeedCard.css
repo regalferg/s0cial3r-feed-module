@@ -49,3 +49,10 @@
 li, strong{
   color:white;
 }
+.img-container{
+  height: 100px;
+}
+
+.slick-slide{
+  width: 100px;
+}

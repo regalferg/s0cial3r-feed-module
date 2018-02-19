@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
 // import Jumbotron from "../../components/Jumbotron";
 import FeedCard from "../../components/FeedCard";
+import FeedModal from "../../components/FeedModal";
 import API from "../../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -10,6 +11,8 @@ import { Input,  FormBtn } from "../../components/Form";
 // import { Carousel } from 'react-responsive-carousel';
 // import {Slider} from 'react-slick';
 import Slider from '../../slider';
+import Modal from 'react-modal';
+
 
 
 class Feed extends Component {
@@ -59,12 +62,38 @@ class Feed extends Component {
         .catch(err => console.log(err));
     }
   };
+
+  constructor() {
+    super();
+ 
+    this.state = {
+      modalIsOpen: false
+    };
+ 
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+ 
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+ 
+  afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    this.subtitle.style.color = '#f00';
+  }
+ 
+  closeModal() {
+    this.setState({modalIsOpen: false});
+  }
   
 
 
 
   render() {
-    var settings = {
+    const settings = {
+      showArrows:true,
       dots: true,
       infinite: true,
       slidesToShow: 3,
@@ -72,7 +101,8 @@ class Feed extends Component {
       autoplay: true,
       autoplaySpeed: 3000,
       pauseOnHover: true,
-      slidesToScroll: 1
+      mobileFirst: true,
+     
     };
 
 
@@ -80,7 +110,20 @@ class Feed extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+        <Col size="md-12 sm-12" >
+        <div id="twitch-embed"></div>
+        <iframe
+    src="http://player.twitch.tv/?channel=wtfmoses&muted=true"
+    height="500px"
+    width="750px"
+    frameBorder="<frameborder>"
+    scrolling="<scrolling>"
+    allowFullScreen="<allowfullscreen>">
+</iframe>
+        </Col>
+
+
+          <Col size="md-12 sm-12" >
            
             <form>
               <Input
@@ -106,13 +149,13 @@ class Feed extends Component {
           </Col>
          </Row>
          <Row>
-          <Col size="md-6 sm-12" >
+          <Col size="md-12 sm-12" >
           <Slider {...settings}>
           {/* <Carousel showArrows={true} showThumbs={false}  width="50%"  onChange={this.onChange} onClickItem={this.onClickItem} > */}
           {this.state.feedz.map(feed => (
-          <div>
+          <div key={feed._id}>
            <FeedCard 
-            key={feed._id}
+            
             id={feed._id}
             poster ={feed.poster} 
             link= {feed.link}
@@ -123,6 +166,10 @@ class Feed extends Component {
         ))}
   
   </Slider>
+  <FeedModal
+
+
+  />
         
         {/* </Carousel> */}
        

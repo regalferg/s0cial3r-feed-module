@@ -17,7 +17,9 @@
 .App-intro {
   font-size: large;
 }
-
+.slick-slider{
+  height:50% !important;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
