@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
 // import Jumbotron from "../../components/Jumbotron";
 import FeedCard from "../../components/FeedCard";
-import FeedModal from "../../components/FeedModal";
+// import FeedModal from "../../components/FeedModal";
 import API from "../../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -11,17 +11,34 @@ import { Input,  FormBtn } from "../../components/Form";
 // import { Carousel } from 'react-responsive-carousel';
 // import {Slider} from 'react-slick';
 import Slider from '../../slider';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
+import {Button, Icon, Modal} from 'react-materialize'
 
+
+
+// const customStyles = {
+//   content : {
+//     top                   : '50%',
+//     left                  : '50%',
+//     right                 : 'auto',
+//     bottom                : 'auto',
+//     marginRight           : '-50%',
+//     transform             : 'translate(-50%, -50%)'
+//   }
+// };
 
 
 class Feed extends Component {
   state = {
     feedz: [],
     poster: "",
-    link: ""
- 
+    link: "",
+    modalIsOpen: false
   };
+
+//   componentWillMount() {
+//     Modal.setAppElement('#modal');
+//  }
 
   componentDidMount() {
     this.loadFeed();
@@ -63,30 +80,23 @@ class Feed extends Component {
     }
   };
 
-  constructor() {
-    super();
+
  
-    this.state = {
-      modalIsOpen: false
-    };
+  // openModal= id => {
+  //   this.setState({modalIsOpen: true});
+  //   console.log(id);
+   
+  //   console.log("F yo Face");
+  // };
  
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
+  // afterOpenModal() {
+  //   // references are now sync'd and can be accessed.
+  //   // this.subtitle.style.color = '#f00';
+  // };
  
-  openModal() {
-    this.setState({modalIsOpen: true});
-  }
- 
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
-  }
- 
-  closeModal() {
-    this.setState({modalIsOpen: false});
-  }
+  // closeModal() {
+  //   this.setState({modalIsOpen: false});
+  // };
   
 
 
@@ -113,7 +123,7 @@ class Feed extends Component {
         <Col size="md-12 sm-12" >
         <div id="twitch-embed"></div>
         <iframe
-    src="http://player.twitch.tv/?channel=wtfmoses&muted=true"
+    src="http://player.twitch.tv/?channel=chocotaco&muted=true"
     height="500px"
     width="750px"
     frameBorder="<frameborder>"
@@ -151,27 +161,82 @@ class Feed extends Component {
          <Row>
           <Col size="md-12 sm-12" >
           <Slider {...settings}>
-          {/* <Carousel showArrows={true} showThumbs={false}  width="50%"  onChange={this.onChange} onClickItem={this.onClickItem} > */}
-          {this.state.feedz.map(feed => (
+         {this.state.feedz.map(feed => (
           <div key={feed._id}>
            <FeedCard 
             
             id={feed._id}
             poster ={feed.poster} 
             link= {feed.link}
+            openModal={this.openModal}
    
           />
+
+                  <Modal
+                    header='s0cial3r shared!'
+                    trigger={<Button waves='light'>Click ME!<Icon right>insert_chart</Icon></Button>}>
+     
+                    <div className='card '>
+                      <img alt={feed.link} src={feed.link} className="imagez card-img openModal" />
+                      <div className="card-img-overlay h-100 d-flex flex-column justify-content-end" >
+                        <ul>
+                          <li>
+                            <strong>Posted By:</strong> {feed.poster}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </Modal>
+            {/* <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+          id={feed._id}
+          poster ={feed.poster} 
+          link= {feed.link}
+        
+   >
+ 
+          <h2 >Hello</h2>
+          <button onClick={this.closeModal}>close</button>
+          <div>I am a modal</div>
+          <div className='card '>
+  <img alt={feed.link} src={feed.link}  className="imagez card-img openModal" />
+    <div className="card-img-overlay h-100 d-flex flex-column justify-content-end" >
+      
+   
+  
+      <ul>
+        <li>
+          <strong>Posted By:</strong> {feed.poster}
+        </li>
+      
+      
+      </ul>
+      </div>
+   
+    </div>
+        </Modal> */}
+
+
+
+
+
+
             </div>
 
         ))}
+
+
+
+
   
   </Slider>
-  <FeedModal
 
-
-  />
-        
-        {/* </Carousel> */}
+         
+      
        
           </Col>
           
@@ -181,5 +246,7 @@ class Feed extends Component {
     )
   }
 }
+
+// Modal.setAppElement("#root");
 
 export default Feed;
